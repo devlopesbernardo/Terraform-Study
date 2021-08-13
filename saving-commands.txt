@@ -1,0 +1,15 @@
+ provisioner "remote-exec" {
+        inline = [
+            "curl -fSSL get.docker.io -o /root/docker.sh",
+            "sleep 15",
+            "sudo bash /root/docker.sh",
+            "docker -v"
+        ]
+      connection {
+        type     = "ssh"
+        # host     = "${digitalocean_droplet.web[count.index].ipv4_address}"
+        host     = "${self.ipv4_address}"
+        user     = "root"
+        private_key    = file("/home/bernardo/.ssh/id_rsa")
+      }
+    }
